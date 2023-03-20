@@ -12,7 +12,6 @@ devtools::install_github("skye-12138/SpaLine")
 
 ## Dependencies
 ```R
-library(ggsci)
 library(ggplot2)
 library(clusterProfiler)
 library(Seurat)
