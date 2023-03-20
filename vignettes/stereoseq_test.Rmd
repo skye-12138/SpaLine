@@ -1,0 +1,62 @@
+---
+title: "Stereoseq test"
+output: pdf_document
+date: "2023-03-20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## load data
+
+```{r}
+library(Seurat)
+library(SeuratDisk)
+setwd("/Users/skye/Library/CloudStorage/OneDrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/WZB/out_test/bin200")
+sc <- LoadH5Seurat("SS200000893TL_B3.TissueCut200.h5seurat",meta.data = T,misc=F)
+
+## data reduction and clustering
+
+x<-standard_seu(sc,"test",qc_dir="/users/skye/library/cloudstorage/onedrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/wzb/out_test",spatial_dir=null)
+```
+
+## annotation
+
+```{r}
+library(celldex)
+library(SingleR)
+hpca.se <- HumanPrimaryCellAtlasData()
+ref=hpca.se
+label=hpca.se$label.main
+x<-Cell_Annotation(x,method="singleR",ref=ref,label=label,cluster=TRUE)
+```
+
+## cell distribution
+
+```{r}
+CellRatio_bar(x,meta="RNA_snn_res.0.6_singleR_predictions")
+```
+
+## boundary interaction by cellphonedb
+
+```{r}
+select_x<-SpArea_Select(x,ident="Tumor_Epi_Boundary",group="RNA_snn_res.0.4_singleR_predictions",interestsID=c("Neurons","Smooth_muscle_cells"),spatial10x=FALSE,saveCPDB_dir="/Users/skye/Library/CloudStorage/OneDrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/WZB/out_test/")
+pathlist<-list.files("/Users/skye/Library/CloudStorage/OneDrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/WZB/out_test/bin200/cellphonedb/out/",full.names = T)
+library(dplyr)
+mat<-Cell_Communication(pathlist,rm_complex=TRUE,top=5)
+LR_plots(mat)
+```
+
+## function analysis
+
+```{r}
+marker<-FindAllMarkers(x,only.pos = T)
+library(paletteer)
+GO_KEGG<-Fun_Plot(marker,species = "human",showCategory = 3)
+```
+
+```{r}
+library(ggsci)
+GO_KEGG<-Fun_Plot(marker$gene,species = "human",showCategory = 3)
+```

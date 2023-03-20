@@ -1,0 +1,19 @@
+Package: SpaLine
+Title: spatial transcriptome analysis pipeline
+Version: 0.1
+Authors@R: 
+    person("Renyan", "Wu", , "wurenyan@outlook.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This packages is used for analyzing spatial transcriptome data
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
