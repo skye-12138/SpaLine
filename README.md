@@ -5,6 +5,11 @@ this repository is for spatial transcriptome analysis
 - 10x visium 
 - stereoseq 
 
+## Install
+```R
+devtools::install_github("skye-12138/SpaLine")
+```
+
 ## Dependencies 
 ggplot2
 Seurat
