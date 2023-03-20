@@ -10,13 +10,20 @@ this repository is for spatial transcriptome analysis
 devtools::install_github("skye-12138/SpaLine")
 ```
 
-## Dependencies 
-ggplot2
-Seurat
-SpaTalk
-CellphoneDB
-celldex
+## Dependencies
+```R
+library(ggsci)
+library(ggplot2)
+library(clusterProfiler)
+library(Seurat)
+library(SeuratDisk)
+library(celldex)
+library(SingleR)
+library(ggsci)
+library(paletteer)
+library(SpaTalk)
 
+```
 
 ## Usage
 ### preprocess 
