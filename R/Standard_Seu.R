@@ -4,12 +4,13 @@
 #' @param spatial_dir the cellranger out spatial directory. Due to lack of spatial HE images, if your data is from stereoseq, this parameter should set to NULL.
 #' @param QC_dir if not null, should be the QC outdir path you want save your QC figures. Make sure you have access to the QC directory
 #' @param project your sample name for identification
+#' @param filter logical, whether to filter cells/spots in top5% in lowest minfeature and highest maxfeature with top5% mitochondrial genes.
 #'
 #' @return a seurat object
 #' @export
 #'
 
-Standard_Seu<-function(x,spatial_dir=NULL,QC_dir=NULL,project){
+Standard_Seu<-function(x,spatial_dir=NULL,QC_dir=NULL,project,filter=TRUE){
   if(is.matrix(x)){
     x<-Seurat::CreateSeuratObject(counts = x,min.cells=0,min.features=0,project = project)
   }else if(is.character(x)){
@@ -52,10 +53,12 @@ Standard_Seu<-function(x,spatial_dir=NULL,QC_dir=NULL,project){
       Qc_Check(x,outdir,spatial=spatial)
     }
   }
-  minFeature<-quantile(x$nFeature_RNA,probs = 0.05)
-  maxFeature<-quantile(x$nFeature_RNA,probs = 0.95)
-  maxMt<-quantile(x$percent.mt,probs = 0.95)
-  x <- subset(x, subset = nFeature_RNA > minFeature & nFeature_RNA < maxFeature & percent.mt < maxMt)
+  if(filter == TRUE){
+    minFeature<-quantile(x$nFeature_RNA,probs = 0.05)
+    maxFeature<-quantile(x$nFeature_RNA,probs = 0.95)
+    maxMt<-quantile(x$percent.mt,probs = 0.95)
+    x <- subset(x, subset = nFeature_RNA > minFeature & nFeature_RNA < maxFeature & percent.mt < maxMt)
+  }
   x <- NormalizeData(x)
   x <-FindVariableFeatures(x,nfeatures=2000)
   x <- ScaleData(object = x,assay = "RNA",features=VariableFeatures(x))
