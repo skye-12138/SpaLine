@@ -4,7 +4,7 @@
 \alias{Standard_Seu}
 \title{Standard_Seu}
 \usage{
-Standard_Seu(x, spatial_dir = NULL, QC_dir = NULL, project)
+Standard_Seu(x, spatial_dir = NULL, QC_dir = NULL, project, filter = TRUE)
 }
 \arguments{
 \item{x}{a seurat object, a count matrix or a parent directory path to cellranger filtered_feature_bc_matrix}
@@ -14,6 +14,8 @@ Standard_Seu(x, spatial_dir = NULL, QC_dir = NULL, project)
 \item{QC_dir}{if not null, should be the QC outdir path you want save your QC figures. Make sure you have access to the QC directory}
 
 \item{project}{your sample name for identification}
+
+\item{filter}{logical, whether to filter cells/spots in top5\% in lowest minfeature and highest maxfeature with top5\% mitochondrial genes.}
 }
 \value{
 a seurat object
