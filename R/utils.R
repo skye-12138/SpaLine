@@ -179,4 +179,16 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
     dev.off()
   }
 }
+###
+LR_Communicate<-function(obj,lrpairs=NULL,pathways=NULL){
+  if(is.null(lrpairs)){
+    lrpairs=data("lrpairs",package = "SpaLine")
+  }
+  if(is.null(pathways)){
+    pathways=data("pathways",package = "SpaLine")
+  }
+  obj <- find_lr_path(object = obj, lrpairs = lrpairs, pathways = pathways)
+  obj <- dec_cci_all(object)
+  return(obj)
+}
 

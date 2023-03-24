@@ -8,10 +8,12 @@ Standard_Spatalk(
   sp,
   sc,
   sc_celltype,
+  method = "SpaTalk",
   sp_meta = NULL,
   geneinfo,
-  lrpairs,
-  pathways
+  communication = TRUE,
+  lrpairs = NULL,
+  pathways = NULL
 )
 }
 \arguments{
