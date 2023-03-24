@@ -180,6 +180,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
   }
 }
 ###
+
 LR_Communicate<-function(obj,lrpairs=NULL,pathways=NULL){
   if(is.null(lrpairs)){
     lrpairs=data("lrpairs",package = "SpaLine")

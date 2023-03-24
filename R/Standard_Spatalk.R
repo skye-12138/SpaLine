@@ -64,7 +64,7 @@ Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,genei
                       method = method)
   ##### find ligand receptor pair
   if(communication == TRUE){
-    obj<-LR_Communicate(obj,lrpairs,pathways)
+    obj<-LR_Communicate(obj=obj,lrpairs=lrpairs,pathways=pathways)
   }
   return(obj)
 }
