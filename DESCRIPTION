@@ -4,7 +4,7 @@ Version: 0.1
 Authors@R: 
     person("Renyan", "Wu", , "wurenyan@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: This packages is used for analyzing spatial transcriptome data
+Description: This packages is used for analyzing spatial transcriptome data.
 Config/reticulate:
   list(
     packages = list(
@@ -28,13 +28,14 @@ LazyData: true
 Imports:
   Seurat (>= 4.3.0),
   SeuratDisk (>= 0.0.0.9019),
-  celldex (>= 1.0.0),
   SingleR (>= 1.4.1),
   paletteer (>= 1.5.0),
-  SpaTalk (>= 1.0),
   ggplot2 (>= 3.3.5),
   ggsci (>= 2.9),
-  clusterProfiler (>= 3.18.1)
+  clusterProfiler (>= 3.18.1),
+  reticulate (>= 1.26),
+  SpaTalk (>= 1.0),
+  celldex(>= 1.8.0)
 Suggests: 
     knitr,
     rmarkdown
