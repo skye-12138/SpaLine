@@ -37,6 +37,7 @@ Imports:
   reticulate (>= 1.26),
   SpaTalk (>= 1.0),
   celldex(>= 1.0.0)
+  dplyr (>= 1.0.7)
 Suggests: 
     knitr,
     rmarkdown
