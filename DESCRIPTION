@@ -24,16 +24,17 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends: 
     R (>= 4.2.2)
-    Seurat (>= 4.3.0)
-    SeuratDisk (>= 0.0.0.9020)
-    celldex (>= 1.8.0)
-    SingleR (>= 2.0.0)
-    paletteer (>= 1.5.0)
-    SpaTalk (>= 1.0)
-    ggplot2 (>= 3.4.0)
-    ggsci (>= 2.9)
-    clusterProfiler (>= 4.6.0)
 LazyData: true
+Imports:
+  Seurat (>= 4.3.0),
+  SeuratDisk (>= 0.0.0.9020),
+  celldex (>= 1.8.0),
+  SingleR (>= 2.0.0),
+  paletteer (>= 1.5.0),
+  SpaTalk (>= 1.0),
+  ggplot2 (>= 3.4.0),
+  ggsci (>= 2.9),
+  clusterProfiler (>= 4.6.0)
 Suggests: 
     knitr,
     rmarkdown
