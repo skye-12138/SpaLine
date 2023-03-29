@@ -5,13 +5,34 @@ Authors@R:
     person("Renyan", "Wu", , "wurenyan@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: This packages is used for analyzing spatial transcriptome data
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "stlearn",version = "0.4.11", pip = FALSE),
+      list(package = "pandas",version="1.5.2",pip=FALSE),
+      list(package = "scanpy",version="1.9.1",pip=FALSE),
+      list(package = "numpy",version="1.23.5",pip=FALSE),
+      list(package = "scipy",version="1.9.3",pip=FALSE),
+      list(package = "histomicstk",version="1.2.3",pip=FALSE),
+      list(package = "anndata",version="0.8.0",pip=FALSE)
+    )
+  )
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.2.2)
+    Seurat (>= 4.3.0)
+    SeuratDisk (>= 0.0.0.9020)
+    celldex (>= 1.8.0)
+    SingleR (>= 2.0.0)
+    paletteer (>= 1.5.0)
+    SpaTalk (>= 1.0)
+    ggplot2 (>= 3.4.0)
+    ggsci (>= 2.9)
+    clusterProfiler (>= 4.6.0)
 LazyData: true
 Suggests: 
     knitr,
