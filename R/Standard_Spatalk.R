@@ -4,7 +4,7 @@
 #' @param sc a seurat object or count matrix of reference scRNAseq data
 #' @param sc_celltype a series character label of the sc reference's cell barcodes
 #' @param sp_meta a matrix recording the spatial locate information, column as x, y and rownames are spot barcodes
-#' @param geneinfo the same as description in SpaTalk
+#' @param geneinfo the same as description in SpaTalk, Null, to use default geneinfo in spatalk
 #' @param lrpairs the same as description in SpaTalk
 #' @param pathways the same as description in SpaTalk
 #'
@@ -12,7 +12,7 @@
 #' @export
 #'
 
-Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,geneinfo,communication=TRUE,lrpairs=NULL,pathways=NULL){
+Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,geneinfo=NULL,communication=TRUE,lrpairs=NULL,pathways=NULL){
   if(!is(sp,"Seurat") & !is(sp,"matrix")){
     stop("sp should be a seurat object or count matrix")
   }else if (!is(sc,"Seurat") & !is(sc,"matrix")) {
@@ -41,6 +41,12 @@ Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,genei
     sc_data<-sc@assays$RNA@counts
   }else{
     sc_data<-sc
+  }
+  #####
+  if(is.null(geneinfo)){
+    data("geneinfo",package = "SpaLine")
+  }else{
+    geneinfo=geneinfo
   }
   st_data <- rev_gene(data = as.matrix(st_data),
                        data_type = "count",

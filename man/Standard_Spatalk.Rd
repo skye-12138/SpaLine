@@ -10,7 +10,7 @@ Standard_Spatalk(
   sc_celltype,
   method = "SpaTalk",
   sp_meta = NULL,
-  geneinfo,
+  geneinfo = NULL,
   communication = TRUE,
   lrpairs = NULL,
   pathways = NULL
@@ -25,7 +25,7 @@ Standard_Spatalk(
 
 \item{sp_meta}{a matrix recording the spatial locate information, column as x, y and rownames are spot barcodes}
 
-\item{geneinfo}{the same as description in SpaTalk}
+\item{geneinfo}{the same as description in SpaTalk, Null, to use default geneinfo in spatalk}
 
 \item{lrpairs}{the same as description in SpaTalk}
 
