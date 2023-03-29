@@ -180,16 +180,3 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
   }
 }
 ###
-
-LR_Communicate<-function(obj,lrpairs=NULL,pathways=NULL){
-  if(is.null(lrpairs)){
-    data("lrpairs",package = "SpaLine")
-  }
-  if(is.null(pathways)){
-    data("pathways",package = "SpaLine")
-  }
-  obj <- find_lr_path(object = obj, lrpairs = lrpairs, pathways = pathways)
-  obj <- dec_cci_all(object)
-  return(obj)
-}
-

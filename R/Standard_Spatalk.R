@@ -12,7 +12,7 @@
 #' @export
 #'
 
-Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,geneinfo=NULL,communication=TRUE,lrpairs=NULL,pathways=NULL){
+Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,geneinfo=NULL,communication=FALSE,lrpairs=NULL,pathways=NULL){
   if(!is(sp,"Seurat") & !is(sp,"matrix")){
     stop("sp should be a seurat object or count matrix")
   }else if (!is(sc,"Seurat") & !is(sc,"matrix")) {
@@ -70,7 +70,14 @@ Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,genei
                       method = method)
   ##### find ligand receptor pair
   if(communication == TRUE){
-    obj<-LR_Communicate(obj=obj,lrpairs=lrpairs,pathways=pathways)
+    if(is.null(lrpairs)){
+      data("lrpairs",package = "SpaLine")
+    }
+    if(is.null(pathways)){
+      data("pathways",package = "SpaLine")
+    }
+    obj <- find_lr_path(object = obj, lrpairs = lrpairs, pathways = pathways)
+    obj <- dec_cci_all(object)
   }
   return(obj)
 }
