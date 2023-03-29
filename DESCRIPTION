@@ -35,7 +35,7 @@ Imports:
   clusterProfiler (>= 3.18.1),
   reticulate (>= 1.26),
   SpaTalk (>= 1.0),
-  celldex(>= 1.8.0)
+  celldex(>= 1.0.0)
 Suggests: 
     knitr,
     rmarkdown
