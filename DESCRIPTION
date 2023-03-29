@@ -14,7 +14,7 @@ Config/reticulate:
       list(package = "scanpy",version="1.9.1",pip=FALSE),
       list(package = "numpy",version="1.23.5",pip=FALSE),
       list(package = "scipy",version="1.9.3",pip=FALSE),
-      list(package = "histomicstk",version="1.2.3",pip=FALSE),
+      list(package = "histomicstk",version="1.2.3",pip=TRUE),
       list(package = "anndata",version="0.8.0",pip=FALSE)
     )
   )
