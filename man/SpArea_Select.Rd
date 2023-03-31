@@ -10,6 +10,7 @@ SpArea_Select(
   ident,
   group,
   interestsID,
+  cols = NULL,
   spatial10x = FALSE,
   saveCPDB_dir = NULL
 )
@@ -22,6 +23,8 @@ SpArea_Select(
 \item{group}{group to cluster your data, should be in your meta.data (eg. celltype slot in your seurat meta.data)}
 
 \item{interestsID}{characters infer your interested spot to select, the character should be in the group above.}
+
+\item{cols}{Vector of colors, each color corresponds to an identity class.}
 
 \item{spatial10x}{logical value to infer if the data is from cellranger output}
 

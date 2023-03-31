@@ -4,13 +4,14 @@
 #' @param ident ident to label the subset object (eg. "xx_boundary")
 #' @param group group to cluster your data, should be in your meta.data (eg. celltype slot in your seurat meta.data)
 #' @param interestsID characters infer your interested spot to select, the character should be in the group above.
+#' @param cols Vector of colors, each color corresponds to an identity class.
 #' @param spatial10x logical value to infer if the data is from cellranger output
 #' @param saveCPDB_dir directory path to save the files for CellphoneDB
 #'
 #' @return a seurat object within selected spots, present the selected area in the plot
 #' @export
 #'
-SpArea_Select<-function(x,ident,group,interestsID,spatial10x=FALSE,saveCPDB_dir=NULL){
+SpArea_Select<-function(x,ident,group,interestsID,cols=NULL,spatial10x=FALSE,saveCPDB_dir=NULL){
   if(group %in% colnames(x@meta.data) == FALSE){
     stop(paste(group,"does not exist in your meta.data",sep=" "))
   }else{
@@ -20,9 +21,9 @@ SpArea_Select<-function(x,ident,group,interestsID,spatial10x=FALSE,saveCPDB_dir=
     }
   }
   if(spatial10x == FALSE){
-    p<-DimPlot(x,group.by=group,reduction = "spatial")
+    p<-DimPlot(x,group.by=group,reduction = "spatial",cols=cols)
   }else{
-    p<-SpatialDimPlot(x,group.by=group)
+    p<-SpatialDimPlot(x,group.by=group,cols=cols)
   }
   select_X<-CellSelector(p,object = x,ident = ident)
   select_X<-subset(select_X,idents= ident)
