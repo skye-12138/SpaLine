@@ -64,7 +64,7 @@ the output file of Standard_Spatalk already containing the LR and target path in
 ### first, select your interest area in seurat object and save the neccesary file for CellphoneDB
 select_x<-SpArea_Select(x,ident="Tumor_Epi_Boundary",group="predicted.id",interestsID=c("Tumor","Epi"),spatial10x=FALSE,saveCPDB_dir=NULL)
 ### second, run CellphoneDB in shell
-cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --iterations=10 --threads=2
+cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --iterations=10 --threads=2 --counts-data hgnc_symbol
 ### extract Ligand-receptor interaction 
 mat<-Cell_Communication(pathlist,rm_complex=FALSE,top=20)
 ########pathlist could be a list of path to the out of cellphonedb of different selected area 
