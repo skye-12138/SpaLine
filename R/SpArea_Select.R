@@ -34,18 +34,18 @@ SpArea_Select<-function(x,ident,group,interestsID,cols=NULL,spatial10x=FALSE,sav
   mannual=T
   while(mannual == T){
     if(spatial10x == FALSE){
-      p<-DimPlot(select_X,reduction = "spatial")
+      p<-DimPlot(select_X,reduction = "spatial",cols=cols)
     }else{
-      p<-SpatialDimPlot(select_X)
+      p<-SpatialDimPlot(select_X,cols=cols)
     }
     select_X<-CellSelector(p,object = select_X,ident = NA)
     mannual<-readline(prompt="Keep select outlier spot? (T or F).  ")
   }
   ### plot the final selected area
   if(spatial10x == FALSE){
-    p<-DimPlot(select_X,reduction = "spatial")+theme_void()
+    p<-DimPlot(select_X,reduction = "spatial",cols=cols)+theme_void()
   }else{
-    p<-SpatialDimPlot(select_X)+theme_void()
+    p<-SpatialDimPlot(select_X,cols=cols)+theme_void()
   }
   print(p)
   if(!is.null(saveCPDB_dir)){
