@@ -4,7 +4,7 @@
 \alias{LR_plots}
 \title{LR_plots}
 \usage{
-LR_plots(mat)
+LR_plots(mat, weight = "pvalue")
 }
 \arguments{
 \item{mat}{matrix get from Cell_Comunication}

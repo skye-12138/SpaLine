@@ -380,11 +380,21 @@ CellRatio_bar<-function(x,meta=NULL){
 #' LR_plots
 #'
 #' @param mat matrix get from Cell_Comunication
-#'
+#' @param mat matrix get from Cell_Comunication
 #'
 #' @export
 
-LR_plots<-function(mat){
+LR_plots<-function(mat,weight="pvalue"){
+  if(weight == "pvalue"){
+    mat<-mat %>% group_by(`cell-pair`) %>% top_n(n=-top,wt=pvalue)
+  }else if(weight == "mean"){
+    mat<-mat %>% group_by(`cell-pair`) %>% top_n(n=-top,wt=mean)
+  }
+  mat$pvalue[which(mat$pvalue <= 0.05 & mat$pvalue >0.01)]<-1
+  mat$pvalue[which(mat$pvalue <= 0.01 & mat$pvalue >0.001)]<-2
+  mat$pvalue[which(mat$pvalue <= 0.001)]<-3
+  mat$pvalue<-as.factor(mat$pvalue)
+  return(mat)
   p<-ggplot(mat,aes(x=mat$`cell-pair`,y=mat$interacting_pair))+
     geom_point(aes(size=mat$pvalue,
                    color=mat$mean))+

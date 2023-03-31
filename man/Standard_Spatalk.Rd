@@ -11,7 +11,7 @@ Standard_Spatalk(
   method = "SpaTalk",
   sp_meta = NULL,
   geneinfo = NULL,
-  communication = TRUE,
+  communication = FALSE,
   lrpairs = NULL,
   pathways = NULL
 )

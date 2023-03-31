@@ -34,10 +34,11 @@ Imports:
   ggplot2 (>= 3.3.5),
   ggsci (>= 2.9),
   clusterProfiler (>= 3.18.1),
-  reticulate (>= 1.26),
   SpaTalk (>= 1.0),
   celldex(>= 1.0.0),
-  dplyr (>= 1.0.7)
+  reticulate (>= 1.26),
+  dplyr (>= 1.0.7),
+  ggthemes
 Suggests: 
     knitr,
     rmarkdown

@@ -42,12 +42,13 @@ SpArea_Select<-function(x,ident,group,interestsID,spatial10x=FALSE,saveCPDB_dir=
   }
   ### plot the final selected area
   if(spatial10x == FALSE){
-    p<-DimPlot(select_X,reduction = "spatial")
+    p<-DimPlot(select_X,reduction = "spatial")+theme_void()
   }else{
-    p<-SpatialDimPlot(select_X)
+    p<-SpatialDimPlot(select_X)+theme_void()
   }
   print(p)
   if(!is.null(saveCPDB_dir)){
+    select_X<-subset(select_X,idents=levels(Idents(select)))
     select_X$cell<-rownames(select_X@meta.data)
     select_X$celltype<-Idents(select_X)
     df = select_X@meta.data[, c('cell', 'celltype')]
