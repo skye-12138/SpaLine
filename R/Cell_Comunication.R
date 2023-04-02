@@ -9,7 +9,7 @@
 #' @export
 #'
 #'
-Cell_Communication<-function(pathlist,rm_complex=FALSE,top=20){
+Cell_Communication<-function(pathlist,rm_complex=FALSE){
   ###path refer to directory of pvalues and means
   all.interactionfile<-lapply(pathlist,Generate_Interactionfile)
   if(length(all.interactionfile) == 1){
@@ -27,12 +27,6 @@ Cell_Communication<-function(pathlist,rm_complex=FALSE,top=20){
   if(rm_complex == TRUE){
     mat<-mat[-grep(pattern="complex",mat$interacting_pair),]
   }
-  ##### select top n ILR in each cell-pair group for plot
-  mat<-mat %>% group_by(`cell-pair`) %>% top_n(n=-top,wt=pvalue)
-  mat$pvalue[which(mat$pvalue <= 0.05 & mat$pvalue >0.01)]<-1
-  mat$pvalue[which(mat$pvalue <= 0.01 & mat$pvalue >0.001)]<-2
-  mat$pvalue[which(mat$pvalue <= 0.001)]<-3
-  mat$pvalue<-as.factor(mat$pvalue)
   return(mat)
 }
 

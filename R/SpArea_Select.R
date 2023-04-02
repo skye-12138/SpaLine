@@ -21,44 +21,44 @@ SpArea_Select<-function(x,ident,group,interestsID,cols=NULL,spatial10x=FALSE,sav
     }
   }
   if(spatial10x == FALSE){
-    p<-DimPlot(x,group.by=group,reduction = "spatial",cols=cols)
+    p<-Seurat::DimPlot(x,group.by=group,reduction = "spatial",cols=cols)
   }else{
-    p<-SpatialDimPlot(x,group.by=group,cols=cols)
+    p<-Seurat::SpatialDimPlot(x,group.by=group,cols=cols)
   }
-  select_X<-CellSelector(p,object = x,ident = ident)
-  select_X<-subset(select_X,idents= ident)
-  Idents(select_X)<-select_X@meta.data[[group]]
-  outlier<-which(levels(Idents(select_X)) %in%  interestsID== FALSE)
-  levels(Idents(select_X))[outlier]<-NA
+  select_X<-Seurat::CellSelector(p,object = x,ident = ident)
+  select_X<-Seurat::subset(select_X,idents= ident)
+  Seurat::Idents(select_X)<-select_X@meta.data[[group]]
+  outlier<-which(levels(Seurat::Idents(select_X)) %in% interestsID == FALSE)
+  levels(Seurat::Idents(select_X))[outlier]<-NA
   ###recheck spot to remove spot not in boundary region
-  mannual=T
-  while(mannual == T){
+  mannual="y"
+  while(tolower(mannual) == "y" || tolower(mannual) == "yes" ){
     if(spatial10x == FALSE){
       p<-DimPlot(select_X,reduction = "spatial",cols=cols)
     }else{
       p<-SpatialDimPlot(select_X,cols=cols)
     }
     select_X<-CellSelector(p,object = select_X,ident = NA)
-    mannual<-readline(prompt="Keep select outlier spot? (T or F).  ")
+    mannual<-readline(prompt="Keep select outlier spot? (yes or no).  ")
   }
   ### plot the final selected area
   if(spatial10x == FALSE){
-    p<-DimPlot(select_X,reduction = "spatial",cols=cols)+theme_void()
+    p<-DimPlot(select_X,reduction = "spatial",cols=cols)+ggplot2::theme_void()
   }else{
-    p<-SpatialDimPlot(select_X,cols=cols)+theme_void()
+    p<-SpatialDimPlot(select_X,cols=cols)+ggplot2::theme_void()
   }
   print(p)
   if(!is.null(saveCPDB_dir)){
-    select_X<-subset(select_X,idents=levels(Idents(select)))
-    select_X$cell<-rownames(select_X@meta.data)
-    select_X$celltype<-Idents(select_X)
-    df = select_X@meta.data[, c('cell', 'celltype')]
+    select_cpdb<-subset(select_X,idents=levels(Idents(select_X)))
+    select_cpdb$cell<-rownames(select_cpdb@meta.data)
+    select_cpdb$celltype<-Idents(select_cpdb)
+    df = select_cpdb@meta.data[, c('cell', 'celltype')]
     ## merge interested id together as a new interact id
-    name=paste0(levels(Idents(select_X)),collapse = "_")
+    name=paste0(levels(Idents(select_cpdb)),collapse = "_")
     ## in stereoseq data the barcode ID are numbers  a "X" is needed in front each number
     df$cell<-paste("X",df$cell,sep = "")
     write.table(df,paste(saveCPDB_dir,"/",name,"_meta.txt",sep = ""),sep = '\t', quote = F, row.names = F)
-    write.table(select_X@assays$RNA@data,paste(saveCPDB_dir,"/",name,"_count.txt",sep = ""),sep = "\t",quote = F)
+    write.table(select_cpdb@assays$RNA@data,paste(saveCPDB_dir,"/",name,"_count.txt",sep = ""),sep = "\t",quote = F)
   }
   return(select_X)
 }

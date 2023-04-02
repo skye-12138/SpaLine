@@ -12,7 +12,7 @@
 #' @export
 #'
 
-Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,geneinfo=NULL,communication=FALSE,lrpairs=NULL,pathways=NULL){
+Standard_Spatalk<-function(sp,sc,sc_celltype,method=1,sp_meta=NULL,geneinfo=NULL,communication=FALSE,lrpairs=NULL,pathways=NULL){
   if(!is(sp,"Seurat") & !is(sp,"matrix")){
     stop("sp should be a seurat object or count matrix")
   }else if (!is(sc,"Seurat") & !is(sc,"matrix")) {
@@ -58,11 +58,6 @@ Standard_Spatalk<-function(sp,sc,sc_celltype,method="SpaTalk",sp_meta=NULL,genei
                        if_st_is_sc = F,
                        spot_max_cell = 10)
   ######deconvolution using spatalk default methods
-  if(method == "SpaTalk"){
-    method = 1
-  }else if(method == "Seurat"){
-    method = 3
-  }
   obj <- dec_celltype(object = obj,
                       sc_data = as.matrix(sc_data),
                       sc_celltype = sc_celltype,

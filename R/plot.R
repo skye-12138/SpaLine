@@ -384,17 +384,17 @@ CellRatio_bar<-function(x,meta=NULL){
 #'
 #' @export
 
-LR_plots<-function(mat,weight="pvalue"){
+LR_plots<-function(mat,weight="pvalue",top=20){
+  ##### select top n ILR in each cell-pair group for plot
   if(weight == "pvalue"){
-    mat<-mat %>% group_by(`cell-pair`) %>% top_n(n=-top,wt=pvalue)
+    mat<-mat %>% dplyr::group_by(`cell-pair`) %>% dplyr::top_n(n=-top,wt=pvalue)
   }else if(weight == "mean"){
-    mat<-mat %>% group_by(`cell-pair`) %>% top_n(n=-top,wt=mean)
+    mat<-mat %>% dplyr::group_by(`cell-pair`) %>% dplyr::top_n(n=top,wt=mean)
   }
   mat$pvalue[which(mat$pvalue <= 0.05 & mat$pvalue >0.01)]<-1
   mat$pvalue[which(mat$pvalue <= 0.01 & mat$pvalue >0.001)]<-2
   mat$pvalue[which(mat$pvalue <= 0.001)]<-3
   mat$pvalue<-as.factor(mat$pvalue)
-  return(mat)
   p<-ggplot(mat,aes(x=mat$`cell-pair`,y=mat$interacting_pair))+
     geom_point(aes(size=mat$pvalue,
                    color=mat$mean))+
@@ -404,6 +404,7 @@ LR_plots<-function(mat,weight="pvalue"){
     scale_size_discrete(range = c(1,2,3),labels=c("*","**","***"))+
     labs(x=NULL,y=NULL)+scale_colour_gradientn(colours = paletteer::paletteer_c("ggthemes::Red-Blue-White Diverging", 30,direction = -1))+labs(color="mean",size="significant")
   print(p)
+  return(mat)
 }
 
 
