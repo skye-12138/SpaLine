@@ -26,7 +26,7 @@ SpArea_Select<-function(x,ident,group,interestsID,cols=NULL,spatial10x=FALSE,sav
     p<-Seurat::SpatialDimPlot(x,group.by=group,cols=cols)
   }
   select_X<-Seurat::CellSelector(p,object = x,ident = ident)
-  select_X<-Seurat::subset(select_X,idents= ident)
+  select_X<-subset(select_X,idents= ident)
   Seurat::Idents(select_X)<-select_X@meta.data[[group]]
   outlier<-which(levels(Seurat::Idents(select_X)) %in% interestsID == FALSE)
   levels(Seurat::Idents(select_X))[outlier]<-NA
