@@ -11,7 +11,7 @@
 #'
 
 Standard_Seu<-function(x,spatial_dir=NULL,QC_dir=NULL,project,filter=TRUE){
-  if(is.matrix(x)){
+  if(is.matrix(x) || is(x, "dgCMatrix")){
     x<-Seurat::CreateSeuratObject(counts = x,min.cells=0,min.features=0,project = project)
   }else if(is.character(x)){
     x<-Seurat::Read10X(data.dir = paste(x, "filtered_feature_bc_matrix", sep = "/"))
