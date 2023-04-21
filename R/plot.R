@@ -170,7 +170,7 @@ interactive = FALSE, combine = TRUE, raster = NULL, raster.dpi = c(512,512)) {
                             col.by = feature, order = order, pt.size = pt.size,
                             cols = cols.use, shape.by = shape.by, label = FALSE,
                             raster = raster, raster.dpi = raster.dpi) + scale_x_continuous(limits = xlims) +
-        scale_y_continuous(limits = ylims) + theme_cowplot() +
+        scale_y_continuous(limits = ylims) + cowplot::theme_cowplot() +
         CenterTitle()
       if (label) {
         plot <- LabelClusters(plot = plot, id = "ident",
@@ -277,7 +277,7 @@ interactive = FALSE, combine = TRUE, raster = NULL, raster.dpi = c(512,512)) {
   if (combine) {
     if (by.col && !is.null(x = split.by) && !blend) {
       plots <- lapply(X = plots, FUN = function(x) {
-        return(suppressMessages(expr = x + theme_cowplot() +
+        return(suppressMessages(expr = x + cowplot::theme_cowplot() +
                                   ggtitle("") + scale_y_continuous(sec.axis = dup_axis(name = ""),
                                                                    limits = ylims) + no.right))
       })

@@ -7,6 +7,7 @@
 #' @param cluster logical value, whether to label cells by cluster
 #'
 #' @return a seurat object with predicted cell label
+#' @import singleR, Seurat
 #' @export
 #'
 Cell_Annotation<-function(x,method="singleR",ref,label,cluster=TRUE){
@@ -29,7 +30,11 @@ Cell_Annotation<-function(x,method="singleR",ref,label,cluster=TRUE){
         }
       }
     }
-  }else if(method != "singleR"){
+  }else if(method == "Seurat"){
+    anchors <- Seurat::FindTransferAnchors(reference = ref, query = x, verbose = F)
+    celltype.predictions<- Seurat::TransferData(anchorset = anchors, refdata = label,
+                                                weight.reduction = x[["pca"]],dims = 1:30)
+  }else{
     print("this method is under development in our script")
   }
   return(x)
