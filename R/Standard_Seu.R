@@ -7,6 +7,7 @@
 #' @param filter logical, whether to filter cells/spots in top5% in lowest minfeature and highest maxfeature with top5% mitochondrial genes.
 #'
 #' @return a seurat object
+#' @import Seurat
 #' @export
 #'
 
