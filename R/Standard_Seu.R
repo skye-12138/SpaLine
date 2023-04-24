@@ -23,7 +23,7 @@ Standard_Seu<-function(x,spatial_dir=NULL,QC_dir=NULL,project,filter=TRUE){
     print(paste(typeof(x), "is not supported. your input should be a count matrix, a 10x matrix directory path or a seurat object!"))
   }
   if(!is.null(spatial_dir)){
-    Ximage <- Read10X_Image(image.dir = spatial_dir)
+    Ximage <- Seurat::Read10X_Image(image.dir = spatial_dir)
     Seurat::DefaultAssay(Ximage) <- "RNA"
     # link matrix and image file
     Ximage <- Ximage[colnames(x)]
