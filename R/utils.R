@@ -29,6 +29,8 @@ Generate_Interactionfile<-function(path){
 #' @param celltype_sender name of sender cell
 #' @param celltype_receiver name of receiver cell
 #' @param top top n ligand-receptor pairs to be extract
+#' @import Seurat ggplot2
+#'
 #'
 #' @return a series of characters containing targeted genes in the given sender and receiver cells
 #' @export
@@ -141,11 +143,16 @@ Fun_Analysis<-function(gene,species,showCategory){
 
 ####
 Qc_Check<-function(x,outdir,spatial=FALSE){
+  x <- NormalizeData(x)
+  x <-FindVariableFeatures(x,nfeatures=2000)
+  x <- ScaleData(object = x,assay = "RNA",features=VariableFeatures(x))
+  x <- RunPCA(object = x,assay = "RNA",features=VariableFeatures(x))
+  x <- FindNeighbors(x, reduction = "pca")
   ####vln plot
   pdf(paste(outdir, "Vlnplot.pdf", sep = "/"), width = 6, height = 4)
   p <- VlnPlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), pt.size = 0, combine = F)
   for (i in 1:length(p)) {
-    p[[i]] <- p[[i]] + NoLegend() + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0))
+    p[[i]] <- p[[i]] + NoLegend() + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 90))
   }
   p <- cowplot::plot_grid(plotlist = p, ncol = 3)
   print(p)
