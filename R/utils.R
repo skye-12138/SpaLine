@@ -152,7 +152,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
   pdf(paste(outdir, "Vlnplot.pdf", sep = "/"), width = 6, height = 4)
   p <- VlnPlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), pt.size = 0, combine = F)
   for (i in 1:length(p)) {
-    p[[i]] <- p[[i]] + NoLegend() + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 90))
+    p[[i]] <- p[[i]] + NoLegend() + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
   }
   p <- cowplot::plot_grid(plotlist = p, ncol = 3)
   print(p)
