@@ -161,7 +161,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
   pdf(paste(outdir, "umap_featureplot.pdf", sep = "/"), width = 14, height = 6)
   p <- FeaturePlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), combine = F)
   for (i in 1:length(p)) {
-    p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0))
+    p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
   }
   print(cowplot::plot_grid(plotlist = p, ncol = 3))
   dev.off()
@@ -171,7 +171,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
       pdf(paste(outdir, "spatial_featureplot.pdf", sep = "/"), width = 14, height = 6)
       p <- FeaturePlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), combine = F,reduction = "spatial")
       for (i in 1:length(p)) {
-        p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0))
+        p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
       }
       print(cowplot::plot_grid(plotlist = p, ncol = 3))
       dev.off()
@@ -180,7 +180,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
     pdf(paste(outdir, "spatial_featurplot.pdf", sep = "/"), width = 7, height = 7)
     p <- SpatialFeaturePlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), combine = F)
     for (i in 1:length(p)) {
-      p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0))
+      p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
     }
     print(cowplot::plot_grid(plotlist = p, ncol = 3))
     dev.off()
