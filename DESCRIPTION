@@ -28,17 +28,18 @@ Depends:
 LazyData: true
 Imports:
   Seurat (>= 4.3.0),
-  SeuratDisk (>= 0.0.0.9019),
-  SingleR (>= 1.4.1),
   paletteer (>= 1.5.0),
   ggplot2 (>= 3.3.5),
   ggsci (>= 2.9),
-  clusterProfiler (>= 3.18.1),
-  SpaTalk (>= 1.0),
-  celldex(>= 1.0.0),
   reticulate (>= 1.26),
   dplyr (>= 1.0.7),
   ggthemes
+Remotes::
+  LTLA/celldex,
+  ZJUFanLab/SpaTalk,
+  mojaveazure/seurat-disk,
+  Bioconductor/SingleR,
+  Bioconductor/clusterProfiler
 Suggests: 
     knitr,
     rmarkdown

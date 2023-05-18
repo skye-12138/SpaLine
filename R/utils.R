@@ -70,7 +70,9 @@ Extract_Target<-function(x,celltype_sender,celltype_receiver,top=20){
 
 
 ### this function is used for GO/KEGG analysis and plot
-Fun_Analysis<-function(gene,species,showCategory){
+### x could be the output of seurat findallmarkers or any data.frame has column name gene and cluster or a just a series of gene character.
+### the genes should be in  "SYMBOL" format as input.
+Fun_Analysis<-function(x,species,showCategory){
   if(species == "human"){
     OrgDb = "org.Hs.eg.db"
     organism="hsa"
@@ -78,30 +80,28 @@ Fun_Analysis<-function(gene,species,showCategory){
     OrgDb = "org.Mm.eg.db"
     organism="mmu"
   }
-  if(is.data.frame(gene)){
+  if(is.data.frame(x)){
     GO <- clusterProfiler::compareCluster(gene~cluster,
-                                          data = gene,
+                                          data = x,
                                           keyType = "SYMBOL",
                                           fun = "enrichGO",
                                           OrgDb         = OrgDb,
                                           ont           = "BP",
                                           pAdjustMethod = "fdr",
                                           pvalueCutoff  = 0.2)
-    entrez<-bitr(gene$gene,fromType = "SYMBOL",toType = "ENTREZID",OrgDb = OrgDb,drop = TRUE)
-    entrez<-entrez[!duplicated(entrez$SYMBOL),]
+    entrez<-bitr(x$gene,fromType = "SYMBOL",toType = "ENTREZID",OrgDb = OrgDb,drop = TRUE)
+    entrez<-entrez[!duplicated(entrez$SYMBOL) & !duplicated(entrez$ENTREZID),]
     if(!is.null(GO)){
       p1<-dotplot(GO,showCategory = showCategory)+scale_fill_manual(values=paletteer_c("ggthemes::Classic Orange", 30))+ggtitle("GO")
       p1<-NULL
     }else{
       print("No Go term has been enriched in this gene set!")
     }
-    gene$entrez<-NA
-    for (num in 1:nrow(entrez)){
-      gene[which(gene$gene == entrez$SYMBOL[num]),"entrez"] <-entrez$ENTREZID[num]
-    }
+    rownames(entrez)<-entrez$SYMBOL
+    x$ENTREZID<-entrez[x$gene,]
     KEGG <- clusterProfiler::compareCluster(
       ENTREZID~cluster,
-      data=gene,
+      data=x,
       fun="enrichKEGG",
       organism=organism,
       pAdjustMethod = "fdr",
@@ -112,8 +112,8 @@ Fun_Analysis<-function(gene,species,showCategory){
       print("No KEGG term has been enriched in this gene set!")
       p2<-NULL
     }
-  }else if(is.character(gene)){
-    GO <- clusterProfiler::enrichGO(gene,
+  }else if(is.character(x)){
+    GO <- clusterProfiler::enrichGO(x,
                                     OrgDb = OrgDb,
                                     keyType = "SYMBOL",
                                     ont="BP"
@@ -124,7 +124,7 @@ Fun_Analysis<-function(gene,species,showCategory){
       print("No GO term has been enriched in this gene set!")
       p1<-NULL
     }
-    entrez<-bitr(gene,fromType = "SYMBOL",toType = "ENTREZID",OrgDb = OrgDb,drop = TRUE)
+    entrez<-bitr(x,fromType = "SYMBOL",toType = "ENTREZID",OrgDb = OrgDb,drop = TRUE)
     KEGG <-clusterProfiler::enrichKEGG(unique(entrez$ENTREZID),
                                        organism = organism,
                                        keyType = "kegg"
@@ -138,6 +138,7 @@ Fun_Analysis<-function(gene,species,showCategory){
   }
   p<-cowplot::plot_grid(plotlist = list(p1,p2))
   print(p)
+  KEGG<-clusterProfiler::setReadable(KEGG,OrgDb = OrgDb)
   return(list(G0=GO,KEGG=KEGG))
 }
 
