@@ -33,13 +33,14 @@ Imports:
   ggsci (>= 2.9),
   reticulate (>= 1.26),
   dplyr (>= 1.0.7),
-  ggthemes
+  ggthemes,
+  SingleR,
+  clusterProfiler
 Remotes:
   LTLA/celldex,
   ZJUFanLab/SpaTalk,
   mojaveazure/seurat-disk,
-  Bioconductor/SingleR,
-  Bioconductor/clusterProfiler
+biocViews:
 Suggests: 
     knitr,
     rmarkdown
