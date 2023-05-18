@@ -18,8 +18,8 @@ Mark_Nuclei<-function(path,QC_dir=NULL,project){
 #    reticulate::use_condaenv("SpaLine_conda", required = TRUE)
 #  }
 #  reticulate::py_config()
-#  reticulate::py_run_file(system.file("python","st_nucleus.py",package = "SpaLine"))
-#  reticulate::py_run_file(system.file("python","st_segment.py",package = "SpaLine"))
+  reticulate::py_run_file(system.file("python","st_nucleus.py",package = "SpaLine"))
+  reticulate::py_run_file(system.file("python","st_segment.py",package = "SpaLine"))
   adata <- feature_tiling(inDir=path,outDir=QC_dir,project=project)
   ###feature extract
   feature_mtx <- adata$obsm['X_tile_feature']
