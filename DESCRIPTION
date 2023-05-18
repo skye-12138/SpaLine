@@ -26,6 +26,7 @@ RoxygenNote: 7.2.3
 Depends: 
     R (>= 4.0.2)
 LazyData: true
+biocViews:
 Imports:
   Seurat (>= 4.3.0),
   paletteer (>= 1.5.0),
@@ -39,8 +40,7 @@ Imports:
 Remotes:
   LTLA/celldex,
   ZJUFanLab/SpaTalk,
-  mojaveazure/seurat-disk,
-biocViews:
+  mojaveazure/seurat-disk
 Suggests: 
     knitr,
     rmarkdown
