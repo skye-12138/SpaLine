@@ -9,7 +9,7 @@ Config/reticulate:
   list(
     packages = list(
       list(package = "python",version = "3.8", pip = FALSE),
-      list(package = "stlearn",version = "0.4.11", pip = TRUE),
+      list(package = "stlearn",pip=TRUE),
       list(package = "pandas",version="1.5.2",pip=FALSE),
       list(package = "scanpy",version="1.9.1",pip=FALSE),
       list(package = "numpy",version="1.23.5",pip=FALSE),
