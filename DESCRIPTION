@@ -34,7 +34,7 @@ Imports:
   reticulate (>= 1.26),
   dplyr (>= 1.0.7),
   ggthemes
-Remotes::
+Remotes:
   LTLA/celldex,
   ZJUFanLab/SpaTalk,
   mojaveazure/seurat-disk,
