@@ -5,19 +5,6 @@ Authors@R:
     person("Renyan", "Wu", , "wurenyan@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: This packages is used for analyzing spatial transcriptome data.
-Config/reticulate:
-  list(
-    packages = list(
-      list(package = "python",version = "3.8", pip = FALSE),
-      list(package = "stlearn"),
-      list(package = "pandas",version="1.5.2",pip=FALSE),
-      list(package = "scanpy",version="1.9.1",pip=FALSE),
-      list(package = "numpy",version="1.23.5",pip=FALSE),
-      list(package = "scipy",version="1.9.3",pip=FALSE),
-      list(package = "histomicstk"),
-      list(package = "anndata",version="0.8.0",pip=FALSE)
-    )
-  )
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
@@ -40,7 +27,7 @@ Imports:
 Remotes:
   LTLA/celldex,
   ZJUFanLab/SpaTalk,
-  mojaveazure/seurat-disk
+  mojaveazure/seurat-disk,
 Suggests: 
     knitr,
     rmarkdown

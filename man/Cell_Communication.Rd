@@ -4,7 +4,7 @@
 \alias{Cell_Communication}
 \title{Cell_Communication}
 \usage{
-Cell_Communication(pathlist, rm_complex = FALSE, top = 20)
+Cell_Communication(pathlist, rm_complex = FALSE)
 }
 \arguments{
 \item{pathlist}{a list containing the paths to CellphoneDB outdir}

@@ -4,12 +4,21 @@
 \alias{Cell_Annotation}
 \title{Title}
 \usage{
-Cell_Annotation(x, method = "singleR", ref, label, cluster = TRUE)
+Cell_Annotation(
+  x,
+  method = "SingleR",
+  ref,
+  label,
+  cluster = TRUE,
+  marker = NULL,
+  weight_id = "avg_log2FC",
+  scale = TRUE
+)
 }
 \arguments{
 \item{x}{a seurat object}
 
-\item{method}{a character, only can set to "singleR" in this version}
+\item{method}{a character, only can set to "SingleR" in this version}
 
 \item{ref}{reference single cell RNAseq data}
 

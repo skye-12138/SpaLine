@@ -8,7 +8,7 @@ Standard_Spatalk(
   sp,
   sc,
   sc_celltype,
-  method = "SpaTalk",
+  method = 1,
   sp_meta = NULL,
   geneinfo = NULL,
   communication = FALSE,

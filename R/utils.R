@@ -92,7 +92,7 @@ Fun_Analysis<-function(x,species,showCategory){
     entrez<-bitr(x$gene,fromType = "SYMBOL",toType = "ENTREZID",OrgDb = OrgDb,drop = TRUE)
     entrez<-entrez[!duplicated(entrez$SYMBOL) & !duplicated(entrez$ENTREZID),]
     if(!is.null(GO)){
-      p1<-dotplot(GO,showCategory = showCategory)+scale_fill_manual(values=paletteer_c("ggthemes::Classic Orange", 30))+ggtitle("GO")
+      p1<-dotplot(GO,showCategory = showCategory)+scale_fill_manual(values=paletteer_c("ggggplot2::themes::Classic Orange", 30))+ggtitle("GO")
       p1<-NULL
     }else{
       print("No Go term has been enriched in this gene set!")
@@ -107,7 +107,7 @@ Fun_Analysis<-function(x,species,showCategory){
       pAdjustMethod = "fdr",
       pvalueCutoff=0.05)
     if(!is.null(KEGG)){
-      p2<-dotplot(KEGG,showCategory = showCategory)+scale_fill_manual(values=paletteer_c("ggthemes::Classic Orange", 30))+ggtitle("KEGG")
+      p2<-dotplot(KEGG,showCategory = showCategory)+scale_fill_manual(values=paletteer_c("ggggplot2::themes::Classic Orange", 30))+ggtitle("KEGG")
     }else{
       print("No KEGG term has been enriched in this gene set!")
       p2<-NULL
@@ -153,7 +153,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
   pdf(paste(outdir, "Vlnplot.pdf", sep = "/"), width = 6, height = 4)
   p <- VlnPlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), pt.size = 0, combine = F)
   for (i in 1:length(p)) {
-    p[[i]] <- p[[i]] + NoLegend() + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
+    p[[i]] <- p[[i]] + NoLegend() + ggplot2::theme(axis.title.x = ggplot2::element_blank(), axis.text.x = ggplot2::element_text(angle = 45))
   }
   p <- cowplot::plot_grid(plotlist = p, ncol = 3)
   print(p)
@@ -162,7 +162,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
   pdf(paste(outdir, "umap_featureplot.pdf", sep = "/"), width = 14, height = 6)
   p <- FeaturePlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), combine = F)
   for (i in 1:length(p)) {
-    p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
+    p[[i]] <- p[[i]] + ggplot2::theme(axis.title.x = ggplot2::element_blank(), axis.text.x = ggplot2::element_text(angle = 45))
   }
   print(cowplot::plot_grid(plotlist = p, ncol = 3))
   dev.off()
@@ -172,7 +172,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
       pdf(paste(outdir, "spatial_featureplot.pdf", sep = "/"), width = 14, height = 6)
       p <- FeaturePlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), combine = F,reduction = "spatial")
       for (i in 1:length(p)) {
-        p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
+        p[[i]] <- p[[i]] + ggplot2::theme(axis.title.x = ggplot2::element_blank(), axis.text.x = ggplot2::element_text(angle = 45))
       }
       print(cowplot::plot_grid(plotlist = p, ncol = 3))
       dev.off()
@@ -181,7 +181,7 @@ Qc_Check<-function(x,outdir,spatial=FALSE){
     pdf(paste(outdir, "spatial_featurplot.pdf", sep = "/"), width = 7, height = 7)
     p <- SpatialFeaturePlot(x, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), combine = F)
     for (i in 1:length(p)) {
-      p[[i]] <- p[[i]] + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 45))
+      p[[i]] <- p[[i]] + ggplot2::theme(axis.title.x = ggplot2::element_blank(), axis.text.x = ggplot2::element_text(angle = 45))
     }
     print(cowplot::plot_grid(plotlist = p, ncol = 3))
     dev.off()

@@ -14,11 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(Seurat)
 library(SeuratDisk)
 setwd("/Users/skye/Library/CloudStorage/OneDrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/WZB/out_test/bin200")
-sc <- LoadH5Seurat("SS200000893TL_B3.TissueCut200.h5seurat",meta.data = T,misc=F)
+sc <- LoadH5Seurat("/Users/skye/Library/CloudStorage/OneDrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/WZB/out_test/bin200/SS200000893TL_B3.TissueCut200.h5seurat",meta.data = T,misc=F)
 
 ## data reduction and clustering
 
-x<-standard_seu(sc,"test",qc_dir="/users/skye/library/cloudstorage/onedrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/wzb/out_test",spatial_dir=null)
+x<-Standard_Seu(sc,"test",QC_dir="/users/skye/library/cloudstorage/onedrive-共享的库-onedrive/pingtai/work_project/华大空转/数据/wzb/out_test",spatial_dir = NULL)
 ```
 
 ## annotation
@@ -30,6 +30,15 @@ hpca.se <- HumanPrimaryCellAtlasData()
 ref=hpca.se
 label=hpca.se$label.main
 x<-Cell_Annotation(x,method="singleR",ref=ref,label=label,cluster=TRUE)
+####deconvolution
+singlecelldata<-readRDS("/Users/skye/Downloads/20221215.tumor_sample_all.rds")
+scP160<-subset(singlecelldata,subset=Sample == "P160")
+###seurat
+x<-Cell_Annotation(x,method="Seurat",ref=scP160,label=scP160$CellType,cluster=TRUE)
+###spotlight
+Idents(scP160)<-scP160$CellType
+marker<-FindAllMarkers(scP160,only.pos = TRUE)
+spotlightlist<-Cell_Annotation(x,method="SPOTlight",ref=scP160,label=scP160$CellType,marker = marker)
 ```
 
 ## cell distribution
