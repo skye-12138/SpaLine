@@ -22,7 +22,6 @@ Imports:
   reticulate (>= 1.26),
   dplyr (>= 1.0.7),
   ggthemes,
-  SingleR,
   clusterProfiler
 Remotes:
   LTLA/celldex,
@@ -30,5 +29,5 @@ Remotes:
   mojaveazure/seurat-disk,
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
 VignetteBuilder: knitr
